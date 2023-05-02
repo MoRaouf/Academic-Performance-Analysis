@@ -40,5 +40,6 @@ matplotlib
 seaborn
 sklearn
 xgboost
-
+catboost
+flask
 ```

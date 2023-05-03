@@ -1,0 +1,7 @@
+[ 2023-05-03 16:33:46,907 ] 224 werkzeug - WARNING -  * Debugger is active!
+[ 2023-05-03 16:33:46,915 ] 224 werkzeug - INFO -  * Debugger PIN: 229-118-115
+[ 2023-05-03 16:33:47,096 ] 29 root - INFO - Initiated prediction pipeline
+[ 2023-05-03 16:33:47,224 ] 80 root - INFO - Finished prediction pipeline
+[ 2023-05-03 16:33:47,239 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:33:47] "POST / HTTP/1.1" 200 -
+[ 2023-05-03 16:34:31,017 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:34:31] "GET / HTTP/1.1" 200 -
+[ 2023-05-03 16:34:32,677 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:34:32] "GET / HTTP/1.1" 200 -

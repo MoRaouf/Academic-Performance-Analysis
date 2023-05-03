@@ -19,7 +19,7 @@ from sklearn.model_selection import GridSearchCV
 @dataclass
 class TrainPipelineConfig:
     """A class to store model path"""
-    trained_model_path=os.path.join("artifacts", "model.pkl")
+    trained_model_path=os.path.join("models", "model.pkl")
     params_path = os.path.join("artifiacts", "params.yaml")
 
 
@@ -32,6 +32,10 @@ class TrainPipeline:
         """Initiate the training pipeline"""
         try:
             logging.info("Started training pipeline")
+
+            #create the models directory
+            os.makedirs(os.path.dirname(self.train_pipeline_config.trained_model_path), exist_ok=True)
+
             #Create X_train, y_train
             X_train = train_data.drop("Weekly_Sales", axis=1)
             y_train = train_data["Weekly_Sales"]

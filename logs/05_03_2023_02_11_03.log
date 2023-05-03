@@ -1,0 +1,10 @@
+[ 2023-05-03 02:11:04,097 ] 224 werkzeug - WARNING -  * Debugger is active!
+[ 2023-05-03 02:11:04,105 ] 224 werkzeug - INFO -  * Debugger PIN: 229-118-115
+[ 2023-05-03 02:11:09,534 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 02:11:09] "GET / HTTP/1.1" 200 -
+[ 2023-05-03 02:12:00,560 ] 224 werkzeug - INFO -  * Detected change in 'C:\\Users\\MR\\anaconda3\\envs\\PyTorch-CUDA118\\Lib\\site-packages\\flask\\app.py', reloading
+[ 2023-05-03 02:12:00,568 ] 224 werkzeug - INFO -  * Detected change in 'C:\\Users\\MR\\anaconda3\\envs\\PyTorch-CUDA118\\Lib\\site-packages\\werkzeug\\datastructures.py', reloading
+[ 2023-05-03 02:12:00,576 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 02:12:00] "[35m[1mPOST / HTTP/1.1[0m" 500 -
+[ 2023-05-03 02:12:00,624 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 02:12:00] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+[ 2023-05-03 02:12:00,624 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 02:12:00] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+[ 2023-05-03 02:12:00,636 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 02:12:00] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+[ 2023-05-03 02:12:00,644 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 02:12:00] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -

@@ -1,0 +1,19 @@
+[ 2023-05-03 16:17:42,035 ] 224 werkzeug - WARNING -  * Debugger is active!
+[ 2023-05-03 16:17:42,051 ] 224 werkzeug - INFO -  * Debugger PIN: 229-118-115
+[ 2023-05-03 16:17:42,098 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:17:42] "GET / HTTP/1.1" 200 -
+[ 2023-05-03 16:17:42,727 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:17:42] "GET / HTTP/1.1" 200 -
+[ 2023-05-03 16:17:43,581 ] 29 root - INFO - Initiated prediction pipeline
+[ 2023-05-03 16:17:43,730 ] 80 root - INFO - Finished prediction pipeline
+[ 2023-05-03 16:17:43,730 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:17:43] "POST / HTTP/1.1" 200 -
+[ 2023-05-03 16:18:54,343 ] 29 root - INFO - Initiated prediction pipeline
+[ 2023-05-03 16:18:54,423 ] 80 root - INFO - Finished prediction pipeline
+[ 2023-05-03 16:18:54,433 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:18:54] "POST / HTTP/1.1" 200 -
+[ 2023-05-03 16:19:03,517 ] 29 root - INFO - Initiated prediction pipeline
+[ 2023-05-03 16:19:03,611 ] 80 root - INFO - Finished prediction pipeline
+[ 2023-05-03 16:19:03,627 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:19:03] "POST / HTTP/1.1" 200 -
+[ 2023-05-03 16:19:17,052 ] 29 root - INFO - Initiated prediction pipeline
+[ 2023-05-03 16:19:17,136 ] 80 root - INFO - Finished prediction pipeline
+[ 2023-05-03 16:19:17,146 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:19:17] "POST / HTTP/1.1" 200 -
+[ 2023-05-03 16:19:20,339 ] 29 root - INFO - Initiated prediction pipeline
+[ 2023-05-03 16:19:20,411 ] 80 root - INFO - Finished prediction pipeline
+[ 2023-05-03 16:19:20,415 ] 224 werkzeug - INFO - 127.0.0.1 - - [03/May/2023 16:19:20] "POST / HTTP/1.1" 200 -

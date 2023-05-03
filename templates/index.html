@@ -1,1 +1,223 @@
-<h1>Welcome to the Home Page</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Department's Retail Weekly Sales Prediction</title>
+	<style>
+	      body {
+          font-family: Arial, sans-serif;
+          background-color: #a8d4ef;
+        }
+
+        .top-left-link {
+              position: absolute;
+              top: 20px; /* Add some top margin */
+              left: 20px; /* Add some left margin */
+              padding: 10px; /* Add some padding */
+              background-color: #ec6a25; /* Add a background color */
+              border-radius: 5px; /* Add some rounded corners */
+              font-size: 16px; /* Increase the font size */
+              color: black; /* Change the font color */
+              text-decoration: none; /* Remove the underline */
+              font-weight: bold;
+        }
+
+        .profile {
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              width: 10%;
+              padding: 20px; /* adds 30 pixels of padding around the image */        
+        }
+
+        .form-box {
+          max-width: 800px;
+          margin: 0 auto;
+          background-color: #ffffff;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        h2 {
+          text-align: center;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+
+        input[type="text"], select {
+          padding: 10px;
+          border: 1px solid #494949;
+          border-radius: 4px;
+          box-sizing: border-box;
+          margin-bottom: 10px;
+          width: 100%;
+        }
+
+		    input[type="date"], select {
+          padding: 10px;
+          border: 1px solid #494949;
+          border-radius: 4px;
+          box-sizing: border-box;
+          margin-bottom: 10px;
+          width: 100%;
+        }
+
+        input[type="submit"] {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-top: 10px;
+          display: block;
+          margin: 0 auto;
+        }
+
+        input[type="submit"]:hover {
+          background-color: #45a049;
+        }
+
+        .form-group {
+          display: inline-block;
+          vertical-align: top;
+          margin-right: 20px;
+          width: 30%;
+        }
+
+        .form-group label {
+          margin-bottom: 5px;
+        }
+	</style>
+</head>
+<body>
+	<a href="https://github.com/MoRaouf/Retail-Sales-Forecasting" class="top-left-link" target="_blank">GitHub Repository Link</a>
+	
+	<h1>Department's Weekly Retail Sales Prediction</h1>
+
+	<div class="form-box">
+	<form method="POST" action="{{ url_for('predict')}}">
+        <div class="form-group">
+		    <label for="store">Store:</label>
+		    <input type="text" id="store" name="store" required min="1" max="45" placeholder="Enter (int) number [1 to 45]">
+        </div>
+
+		<div class="form-group">
+			<label for="dept">Dept:</label>
+			<input type="text" id="dept" name="dept" required min="1" max="80" placeholder="Enter (int) number [1 to 80]">
+		</div>
+
+    <!-- <div class="form-group">
+			<label for="holiday">IsHoliday:</label>
+      <input type="text" id="holiday" name="holiday" placeholder="Enter True or False">
+
+		</div> -->
+
+		<div class="form-group">
+			<label for="holiday">IsHoliday:</label>
+			<select id="holiday" name="holiday">
+			  <option value="True">True</option>
+			  <option value="False">False</option>
+			</select>
+		</div>
+
+		<!-- <div class="form-group">
+			<label for="holiday">IsHoliday:</label>
+			<input type="radio" id="holiday" name="holiday" value="True" checked>
+			<label for="holiday">True</label>
+			<input type="radio" id="holiday" name="holiday" value="False">
+			<label for="holiday">False</label><br><br>
+		</div> -->
+
+		<div class="form-group">
+			<label for="temp">Temperature:</label>
+			<input type="text" id="temp" name="temp" required min="-30" max="120" placeholder="Enter Temperature value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="fuel">Fuel Price:</label>
+			<input type="text" id="fuel" name="fuel" required min="2" max="5" step="0.01" placeholder="Enter Fuel Price (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="md1">MarkDown1:</label>
+			<input type="text" id="md1" name="md1" required min="2" max="5" step="0.01" placeholder="Enter Markdown1 value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="md2">MarkDown2:</label>
+			<input type="text" id="md2" name="md2" required min="0" max="10000" step="0.01" placeholder="Enter Markdown2 value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="md3">MarkDown3:</label>
+			<input type="text" id="md3" name="md3" required min="0" max="10000" step="0.01" placeholder="Enter Markdown3 value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="md4">MarkDown4:</label>
+			<input type="text" id="md4" name="md4" required min="0" max="10000" step="0.01" placeholder="Enter Markdown4 value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="md5">MarkDown5:</label>
+			<input type="text" id="md5" name="md5" required min="0" max="10000" step="0.01" placeholder="Enter Markdown5 value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="cpi">CPI:</label>
+			<input type="text" id="cpi" name="cpi" required min="100" max="250" step="0.01" placeholder="Enter CPI value (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="unemp">Unemployment:</label>
+			<input type="text" id="unemp" name="unemp" required min="3" max="12" step="0.01" placeholder="Enter Unemployment rate (float)">
+		</div>
+
+		<div class="form-group">
+			<label for="type">Type:</label>
+			<select id="type" name="type">
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+			  </select>
+		</div>
+
+		<div class="form-group">
+			<label for="size">Size:</label>
+			<input type="text" name="size" id="size" min="30000" max="250000" step="1000" required placeholder="Enter Store size (float)">
+		</div>
+
+		<div class="form-group">
+        	<label for="date">Date:</label>
+        	<input type="date" name="date" id="date"  min="2013-01-01" max="2013-12-31" required>
+		</div>
+
+        <div class="input-group">
+        	<input type="submit" value="Predict Weekly Sales" class="btn">
+        </div>
+
+</form>
+</div>
+
+<div>      
+    <h2>
+		Predicted Weekly Sales: {{ results }} $
+    </h2>
+</div>
+
+<!-- <div class="output">
+<h3>Predicted Weekly Sales:</h3>
+<p id="top">{{ result }}</p>
+</div> -->
+
+</body>
+</html>

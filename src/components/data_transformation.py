@@ -30,47 +30,46 @@ class DataTransformation:
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
 
-    def create_data_preprocessor(self):
-        """Create the preprocessor pipeline of the data columns transformation"""
+    # def create_data_preprocessor(self):
+    #     """Create the preprocessor pipeline of the data columns transformation"""
 
-        try:
-            #create or select the numerical & categorical column names
-            num_cols = ["Temperature", "Fuel_Price", "CPI", "Unemployment"]
-            cat_cols = ["Type", "IsHoliday"]
+    #     try:
+    #         #create or select the numerical & categorical column names
+    #         num_cols = ["Temperature", "Fuel_Price", "CPI", "Unemployment"]
+    #         cat_cols = ["Type", "IsHoliday"]
 
-            logging.info(f"Categorical columns to transform: {cat_cols}")
-            logging.info(f"Numerical columns to transform: {num_cols}")
+    #         logging.info(f"Categorical columns to transform: {cat_cols}")
+    #         logging.info(f"Numerical columns to transform: {num_cols}")
 
-            #create the artifacts & preprocessors directories
-            os.makedirs(os.path.dirname(self.data_transformation_config.preprocessor_path), exist_ok=True)
+    #         #create the artifacts directory
+    #         os.makedirs(os.path.dirname(self.data_transformation_config.preprocessor_path), exist_ok=True)
 
-            #create numerical pipeline
-            num_pipeline = Pipeline(
-                steps=[
-                ("imputer", SimpleImputer(strategy="mean"))
-                ]
-            )
+    #         #create numerical pipeline
+    #         num_pipeline = Pipeline(
+    #             steps=[
+    #             ("imputer", SimpleImputer(strategy="mean"))
+    #             ]
+    #         )
 
-            #create categorical pipeline
-            cat_pipeline = Pipeline(
-                steps=[
-                ("encoder", SimpleImputer(strategy="most_frequent")),
-                ("one_hot_encoding", OrdinalEncoder())
-                ]
-            )
+    #         #create categorical pipeline
+    #         cat_pipeline = Pipeline(
+    #             steps=[
+    #             ("encoder", OrdinalEncoder())
+    #             ]
+    #         )
 
-            #create data columns preprocessor
-            preprocessor = ColumnTransformer(
-                [
-                ("num_pipeline", num_pipeline, num_cols),
-                ("cat_pipeline", cat_pipeline, cat_cols)
-                ]
-            )
+    #         #create data columns preprocessor
+    #         preprocessor = ColumnTransformer(
+    #             [
+    #             ("num_pipeline", num_pipeline, num_cols),
+    #             ("cat_pipeline", cat_pipeline, cat_cols)
+    #             ]
+    #         )
 
-            return preprocessor
+    #         return preprocessor
 
-        except Exception as e:
-            raise CustomException(e, sys)
+    #     except Exception as e:
+    #         raise CustomException(e, sys)
         
 
     
@@ -95,12 +94,6 @@ class DataTransformation:
 
             logging.info(f"Date Column preprocessed")
 
-            #preprocess Markdown columns
-            train_df[markdown_cols] = train_df[markdown_cols].interpolate(limit_direction="both")
-
-            #get the preprocessor object
-            preprocessor = self.create_data_preprocessor()
-
             #drop the target column from train & test data
             target_col = "Weekly_Sales"
             y_train = pd.Series(train_df[target_col], name=target_col)
@@ -109,22 +102,44 @@ class DataTransformation:
             X_train = train_df.drop(target_col, axis=1)
             X_test = train_df.drop(target_col, axis=1)
 
+            #preprocess Markdown columns
+            train_df[markdown_cols] = train_df[markdown_cols].interpolate(limit_direction="both")
+
+            #get the preprocessor object
+            # preprocessor = self.create_data_preprocessor()
+
             #preprocess the data
-            preprocessed_X_train = pd.DataFrame(preprocessor.fit_transform(X_train),
-                                                columns = num_cols+cat_cols)
-            preprocessed_X_test = pd.DataFrame(preprocessor.fit_transform(X_test),
-                                               columns = num_cols+cat_cols)
+            # preprocessed_X_train = pd.DataFrame(preprocessor.fit_transform(X_train),
+            #                                     columns = num_cols+cat_cols)
+            # preprocessed_X_test = pd.DataFrame(preprocessor.transform(X_test),
+            #                                    columns = num_cols+cat_cols)
+
             #remove unncesseary columns
-            preprocessed_X_train = pd.concat([X_train.drop(num_cols+cat_cols, axis=1), preprocessed_X_train], axis=1)
-            preprocessed_X_test = pd.concat([X_test.drop(num_cols+cat_cols, axis=1), preprocessed_X_test], axis=1)
+            # preprocessed_X_train = pd.concat([X_train.drop(num_cols+cat_cols, axis=1), preprocessed_X_train], axis=1)
+            # preprocessed_X_test = pd.concat([X_test.drop(num_cols+cat_cols, axis=1), preprocessed_X_test], axis=1)
             
+            #Impute num_cols in X_train & X_test with the mean of their respective month
+            imputer = SimpleImputer(strategy='mean')
+
+            for month in X_train.Month.unique():
+                X_train.loc[X_train.Month == month, num_cols]= imputer.fit_transform(X_train.loc[X_train.Month == month, num_cols])
+            
+            for month in X_test.Month.unique():
+                X_test.loc[X_test.Month == month, num_cols]= imputer.transform(X_test.loc[X_test.Month == month, num_cols])
+
+            #encode cat_cols in X_train & X_test
+            encoder = OrdinalEncoder()
+            X_train[cat_cols] = encoder.fit_transform(X_train[cat_cols])
+            X_test[cat_cols] = encoder.fit_transform(X_test[cat_cols])
+
+
             #scale the data
             scaler = StandardScaler()
 
-            preprocessed_X_train = pd.DataFrame(scaler.fit_transform(preprocessed_X_train), 
-                                                columns=preprocessed_X_train.columns)
-            preprocessed_X_train = pd.DataFrame(scaler.transform(preprocessed_X_train), 
-                                                columns=preprocessed_X_test.columns)
+            preprocessed_X_train = pd.DataFrame(scaler.fit_transform(X_train), 
+                                                columns=X_train.columns)
+            preprocessed_X_test = pd.DataFrame(scaler.transform(X_test), 
+                                                columns=X_test.columns)
             
             logging.info(f"Preprocessed X_train & X_test")
 
@@ -132,7 +147,7 @@ class DataTransformation:
             final_X_train = pd.concat([preprocessed_X_train, y_train], axis=1)
             final_X_test = pd.concat([preprocessed_X_test, y_test], axis=1)
 
-            save_pickle_object(preprocessor ,self.data_transformation_config.preprocessor_path)
+            # save_pickle_object(preprocessor ,self.data_transformation_config.preprocessor_path)
 
             return (
                 final_X_train,

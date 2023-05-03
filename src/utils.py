@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error,r2_score
 from sklearn.model_selection import GridSearchCV
 
 from src.exception import CustomException
-from logger import logging
+from src.logger import logging
 
 
 def save_pickle_object(obj, file_path):

@@ -3,7 +3,9 @@ import pandas as pd
 import numpy as np
 from src.pipeline.predict_pipeline import PredictPipeline
 
-app = Flask(__name__)
+application = Flask(__name__)
+
+app = application
 
 @app.route('/', methods=['GET','POST'])
 def predict():
@@ -54,4 +56,4 @@ def predict():
         return render_template('index.html', results=predictions[0])
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0",)

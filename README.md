@@ -45,6 +45,7 @@ The application was deployed to AWS Beanstalk. [Access it here](http://retailsal
 
 Deployment as Docker image
 ---
+The published Docker image can be found from [this link](https://hub.docker.com/r/moraouf/sales-forecast).
 * To use the app locally:
     1. Pull the image from Docker Hub then run a container from it:
         ```

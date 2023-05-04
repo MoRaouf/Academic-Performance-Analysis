@@ -49,7 +49,7 @@ The published Docker image can be found from [this link](https://hub.docker.com/
 * To use the app locally:
     1. Pull the image from Docker Hub then run a container from it:
         ```
-        docker image pull moraouf/sales-forecast:v1
+        docker image pull moraouf/sales-forecast:v2
         docker container run -it --name sales-forecast-app -p 5000:5000 moraouf/sales-forecast:v2
         ```
     2. Run flask app from http://localhost:5000/

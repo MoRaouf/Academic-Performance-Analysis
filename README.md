@@ -69,6 +69,27 @@ docker image tag sales-forecast moraouf/sales-forecast:v1
 docker image push moraouf/sales-forecast:v1
 ``` -->
 
+Project Structure
+---
+
+    ├── .ebextensions      <- Configuration needed for deployment on AWS Beanstalk
+    ├── artifacts          <- Contains different artifacts for model training
+    ├── data               <- Datasets used and collected for this project
+    ├── logs               <- Logs of the project
+    ├── models             <- Serialized trained models
+    ├── notebooks          <- Jupyter Notebooks for different steps in the project
+    ├── templates          <- Templates folder contains HTML code for the Flask application
+    ├── README.md          <- The top-level README for developers/collaborators using this project.
+    │   
+    ├── src                <- Source code folder for this project
+        │
+        ├── components     <- Components folder for data ingestion & data transformation 
+        │   
+        └── pipeline       <- Piepline folder for training & prediction pipelines
+
+--------
+
+
 
 Requirements
 ---
